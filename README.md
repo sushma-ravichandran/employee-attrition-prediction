@@ -23,6 +23,7 @@ This dataset was sourced from a public [Kaggle repository](https://www.kaggle.co
 During the data preparation and exploratory data analysis (EDA) phases, I took several key steps including:
 * Duplicated rows were found and dropped, and column names were standardized to `snake_case`.
 * Applied IQR-based filtering to detect and remove outliers, ensuring data consistency.
+* Conducted multicollinearity checks to ensure independent variables did not exhibit high correlation, and the assumption held true.
 
 and uncovered various key insights:
   
@@ -36,9 +37,9 @@ and uncovered various key insights:
 ### 4. Modeling and Evaluation
 Since the target variable (`left`) was categorical, classification models were applied for prediction. I used Logistic Regression as an interpretable baseline and then tested tree-based ML models to capture more complex patterns in the data.
 
-* **Logistic Regression:** This model achieved an overall accuracy of 82%, but its ability to identify at-risk employees was lower, indicating it may miss some who are likely to leave.
-* **Decision Tree:** To overcome the limitations of the Logistic Regression model, I applied a Decision Tree with engineered features, which showed substantially stronger performance.The model achieved a high accuracy of **95.9%** on the train set and highlighted key features like `last_evaluation`, `number_project`, `tenure`, and `overworked` as most important for predicting attrition.
-* **Random Forest:** This ensemble model was chosen to address the risk of overfitting in a single Decision Tree. The Random Forest model provided an additional performance boost, modestly outperforming the Decision Tree with a **96.2% accuracy** on the test data. It also demonstrated better generalization and robustness.
+* **Logistic Regression:** This model achieved an overall accuracy of **82%**, but its ability to capture complex, non-linear relationships in the data was limited, which meant it may have missed some at-risk employees.
+* **Decision Tree:** To overcome the limitations of the Logistic Regression model, I applied a Decision Tree with engineered features, which showed substantially stronger performance. On the train set, it achieved a high accuracy of **95.9%** and an ROC-AUC of **95.9%** while highlighting key features like `last_evaluation`, `number_project`, `tenure`, and `overworked` as most important for predicting attrition.
+* **Random Forest:** This ensemble model was chosen to address the risk of overfitting in a single Decision Tree. On the test data, the Random Forest model provided a performance boost, modestly outperforming the Decision Tree with a **96.2% accuracy** and an ROC-AUC of **93.8%**. Although its ROC-AUC was slightly lower than the Decision Tree, the Random Forest model was selected as the final model due to its superior generalization and robustness on unseen data.
 
 Throughout the modeling process, ROC-AUC was chosen as a key evaluation metric because it provides a balanced assessment of the model's ability to distinguish between classes, which is especially useful for imbalanced datasets.
 
